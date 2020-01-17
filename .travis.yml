@@ -1,6 +1,7 @@
 language: node_js
 
 node_js:
+  - node
   - '12'
   - '10'
   - '8'
@@ -16,7 +17,7 @@ jobs:
     - stage: npm release
       if: tag IS present
       os: linux
-      node_js: 'node'
+      node_js: '10'
       deploy:
         provider: npm
         skip_cleanup: true
