@@ -1,0 +1,25 @@
+{
+  "name": "libheif-js",
+  "version": "1.0.0",
+  "description": "libheif-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fetch": "node scripts/install.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/catdad-experiments/libheif-js.git"
+  },
+  "author": "Kiril Vatev <vatev.1@gmail.com>",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/catdad-experiments/libheif-js/issues"
+  },
+  "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "fs-extra": "^8.1.0",
+    "node-fetch": "^2.6.0"
+  }
+}
