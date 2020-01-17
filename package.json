@@ -1,7 +1,7 @@
 {
   "name": "libheif-js",
   "version": "1.0.0",
-  "description": "libheif-js",
+  "description": "Emscripten distribution of libheif for Node.JS and the browser",
   "main": "libheif/libheif.js",
   "scripts": {
     "pretest": "npm run -s images",
@@ -29,5 +29,11 @@
   },
   "engines": {
     "node": ">=8.0.0"
-  }
+  },
+  "keywords": [
+    "heif",
+    "heic",
+    "libheif",
+    "decoder"
+  ]
 }
