@@ -2,9 +2,9 @@
   "name": "libheif-js",
   "version": "1.0.0",
   "description": "libheif-js",
-  "main": "index.js",
+  "main": "libheif/libheif.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/**/*.test.js",
     "fetch": "node scripts/install.js"
   },
   "repository": {
@@ -18,8 +18,13 @@
   },
   "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",
+    "mocha": "^7.0.0",
     "node-fetch": "^2.6.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
   }
 }
