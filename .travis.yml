@@ -26,6 +26,3 @@ jobs:
         on:
           tags: true
           repo: catdad-experiments/libheif-js
-    - stage: test release as a job
-      os: linux
-      node_js: 'node'
