@@ -21,6 +21,7 @@
   "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
   "devDependencies": {
     "chai": "^4.2.0",
+    "end-of-stream": "^1.4.4",
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",
     "mocha": "^7.0.0",
