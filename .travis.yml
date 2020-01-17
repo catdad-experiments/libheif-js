@@ -24,7 +24,7 @@ jobs:
         skip_cleanup: true
         email: vatev.1+npm@gmail.com
         api_key:
-          secure: cWfxjBqeJU6jQ07XjQu+58tSc33tmXpsCZtKeCLvP+d3RNYYiy7d7m0iBUm30XH8z/+6Rl2NAz7EFk/F2dqd/Pe0TGzPr4jBAfDcDacI7Xkk0Yz0ZtG1wkI9iZw6FWYS3ABdcs4XuRZknNXeW+RB3hKEsJhwGecVF5mlcNQqagAI6LWGmB89Hlr5eXVMHzhUc3PFVqBi42nEuahb/27ovnhuquJg42uQBsCMhvRoCpKH2ELoftfI/xyNfAHJQd6itGp3PPitRcUBluyXjgYhRQeK1QnBq76DZ/rJCRYXquCLfdLE4wyVy5OFFMFr37Uhi22PfQ2Kmodgoi/lzXfioNPVssWxJS4xddmNsFDnuuPhUGr0utjKGh8flA6JcPdejcYoOvdCuAK56ZvqBvjsWebf5HYkGgA/+wjNEKRMr+qSDZR5kGWy2QXbT72C3SpYJR+nQr7H6O8xxDYBQt5sDM89obnbtapkBpaIOtr92t6J57Qqp3bRVeqCtEbtS6QfCwu5AQbi3FZZ/ucNgqWz7ePbpC6eZr7UIsPGus5MyDFKU9s+O+lbemHx7601JFXqMkkGCoG/X0eGbS/rv1aPfduABqgpyIpt/mJbMi+4tXVHACYM/ZOs0SRSW6FiBShRcDdosvlH5fI+I6Vzd0Wd/jsF/XH8+z8AVkG3KuG0Q6A=
+          secure: W56OEDJwh0sMOqHc/JuPf3AChLfBmtGj+o9Hxh73sIpFp1jccCM9U2FQpqiJ7KoHftesICLk4F5oNei4hM3Sh7HUuA7+E1GnBioOMTxRM18rXsITESLZ9zH+wcKjaNUhdewSISczZQG+1DPY8hZMGgmBtdxXM2UmDnkyjCHN7OPRESTp5kLRVPSPpSUWPT5E5RPFkpZ009DW1+M+7rtNpaFumReAgnnXJWpgvQ+bDNG55HkTblD4aE4F6ckptUg6YM4e2oPojQ9OqjHl44hB3FsXWQ39378oyp9UBsy+446/f9fRIzj+12w6POOHe7EvIaHnaLeRpXY4ORMj9+1MMvAXzt/ebLGKR0VDdzCmYokWOrDu0q7RYkzgio22tq2oPE2VFwOn1fbWGQZ5h8YQOcsOVOfNufsMYQfAQpEaUBRSasfkJSRD3maePUUA/efleMZ1zu/J+0yZWTLVZ7J6WEh3zkpDgR3n4PFwYYrcG+Mdl0zVRJWWJbt6k7Uq58t+IHwFfS2zpQRaHikOzA2xYOHjdbcXzlfuzEcM6HkNA8qd5FrM4lKdQy094oqOcotwTyn02oDhCCorurDAlnJDXKWa/MfFdyUOWHrpR+TwAh9uzHHIIdAkY1qn0+UwA5NoMyUqbpzi5yh8CIHlGSOPwfPnfBNt9W7bsLe+BOuO1ig=
         on:
           tags: true
           repo: catdad-experiments/libheif-js
