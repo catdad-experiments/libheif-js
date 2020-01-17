@@ -26,6 +26,7 @@
     "fs-extra": "^8.1.0",
     "mocha": "^7.0.0",
     "node-fetch": "^2.6.0",
+    "pumpify": "^2.0.1",
     "rootrequire": "^1.0.0"
   },
   "engines": {

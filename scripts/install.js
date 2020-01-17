@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
+const path = require('path');
 const { promisify } = require('util');
 const eos = promisify(require('end-of-stream'));
-const path = require('path');
+const pump = require('pumpify');
 const fs = require('fs-extra');
 const fetch = require('node-fetch');
 const root = require('rootrequire');
@@ -29,8 +30,8 @@ const responseStream = async url => {
 (async () => {
   await fs.ensureDir(libheifDir);
 
-  await eos(await responseStream(lib), fs.createWriteStream(libheif));
-  await eos(await responseStream(license), fs.createWriteStream(libheifLicense));
+  await eos(pump(await responseStream(lib), fs.createWriteStream(libheif)));
+  await eos(pump(await responseStream(license), fs.createWriteStream(libheifLicense)));
 })().then(() => {
   console.log(`fetched libheif ${version}`);
 }).catch(err => {
