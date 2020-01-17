@@ -1,11 +1,13 @@
+/* eslint-disable no-console */
 const { promisify } = require('util');
 const stream = require('stream');
 const pipeline = promisify(stream.pipeline);
 const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('node-fetch');
+const root = require('rootrequire');
 
-const libheifDir = path.resolve('./libheif');
+const libheifDir = path.resolve(root, 'libheif');
 const libheif = path.resolve(libheifDir, 'libheif.js');
 const libheifLicense = path.resolve(libheifDir, 'LICENSE');
 
@@ -29,7 +31,7 @@ const responseStream = async url => {
   await fs.ensureDir(libheifDir);
 
   await pipeline(await responseStream(lib), fs.createWriteStream(libheif));
-  await pipeline(await responseStream(license), fs.createWriteStream(path.resolve(libheifDir, 'LICENSE')));
+  await pipeline(await responseStream(license), fs.createWriteStream(libheifLicense));
 })().then(() => {
   console.log(`fetched libheif ${version}`);
 }).catch(err => {

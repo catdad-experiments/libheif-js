@@ -36,6 +36,7 @@ Temporary Items
 node_modules/
 coverage/
 .nyc_output/
+temp/
 
 # not source code
 libheif/

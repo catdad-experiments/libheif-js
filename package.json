@@ -4,8 +4,10 @@
   "description": "libheif-js",
   "main": "libheif/libheif.js",
   "scripts": {
+    "pretest": "npm run -s images",
     "test": "mocha test/**/*.test.js",
-    "fetch": "node scripts/install.js"
+    "fetch": "node scripts/install.js",
+    "images": "node scripts/images.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,8 @@
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",
     "mocha": "^7.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "rootrequire": "^1.0.0"
   },
   "engines": {
     "node": ">=8.0.0"
