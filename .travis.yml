@@ -1,21 +1,31 @@
 language: node_js
 
 node_js:
-  - node
   - '12'
   - '10'
   - '8'
 
-script:
+install:
   - npm run fetch
+
+script:
   - npm test
 
-deploy:
-  provider: npm
-  skip_cleanup: true
-  email: vatev.1+npm@gmail.com
-  api_key:
-    secure: cWfxjBqeJU6jQ07XjQu+58tSc33tmXpsCZtKeCLvP+d3RNYYiy7d7m0iBUm30XH8z/+6Rl2NAz7EFk/F2dqd/Pe0TGzPr4jBAfDcDacI7Xkk0Yz0ZtG1wkI9iZw6FWYS3ABdcs4XuRZknNXeW+RB3hKEsJhwGecVF5mlcNQqagAI6LWGmB89Hlr5eXVMHzhUc3PFVqBi42nEuahb/27ovnhuquJg42uQBsCMhvRoCpKH2ELoftfI/xyNfAHJQd6itGp3PPitRcUBluyXjgYhRQeK1QnBq76DZ/rJCRYXquCLfdLE4wyVy5OFFMFr37Uhi22PfQ2Kmodgoi/lzXfioNPVssWxJS4xddmNsFDnuuPhUGr0utjKGh8flA6JcPdejcYoOvdCuAK56ZvqBvjsWebf5HYkGgA/+wjNEKRMr+qSDZR5kGWy2QXbT72C3SpYJR+nQr7H6O8xxDYBQt5sDM89obnbtapkBpaIOtr92t6J57Qqp3bRVeqCtEbtS6QfCwu5AQbi3FZZ/ucNgqWz7ePbpC6eZr7UIsPGus5MyDFKU9s+O+lbemHx7601JFXqMkkGCoG/X0eGbS/rv1aPfduABqgpyIpt/mJbMi+4tXVHACYM/ZOs0SRSW6FiBShRcDdosvlH5fI+I6Vzd0Wd/jsF/XH8+z8AVkG3KuG0Q6A=
-  on:
-    tags: true
-    repo: catdad-experiments/libheif-js
+jobs:
+  include:
+    - stage: npm release
+      if: tag IS present
+      os: linux
+      node_js: 'node'
+      deploy:
+        provider: npm
+        skip_cleanup: true
+        email: vatev.1+npm@gmail.com
+        api_key:
+          secure: cWfxjBqeJU6jQ07XjQu+58tSc33tmXpsCZtKeCLvP+d3RNYYiy7d7m0iBUm30XH8z/+6Rl2NAz7EFk/F2dqd/Pe0TGzPr4jBAfDcDacI7Xkk0Yz0ZtG1wkI9iZw6FWYS3ABdcs4XuRZknNXeW+RB3hKEsJhwGecVF5mlcNQqagAI6LWGmB89Hlr5eXVMHzhUc3PFVqBi42nEuahb/27ovnhuquJg42uQBsCMhvRoCpKH2ELoftfI/xyNfAHJQd6itGp3PPitRcUBluyXjgYhRQeK1QnBq76DZ/rJCRYXquCLfdLE4wyVy5OFFMFr37Uhi22PfQ2Kmodgoi/lzXfioNPVssWxJS4xddmNsFDnuuPhUGr0utjKGh8flA6JcPdejcYoOvdCuAK56ZvqBvjsWebf5HYkGgA/+wjNEKRMr+qSDZR5kGWy2QXbT72C3SpYJR+nQr7H6O8xxDYBQt5sDM89obnbtapkBpaIOtr92t6J57Qqp3bRVeqCtEbtS6QfCwu5AQbi3FZZ/ucNgqWz7ePbpC6eZr7UIsPGus5MyDFKU9s+O+lbemHx7601JFXqMkkGCoG/X0eGbS/rv1aPfduABqgpyIpt/mJbMi+4tXVHACYM/ZOs0SRSW6FiBShRcDdosvlH5fI+I6Vzd0Wd/jsF/XH8+z8AVkG3KuG0Q6A=
+        on:
+          tags: true
+          repo: catdad-experiments/libheif-js
+    - stage: test release as a job
+      os: linux
+      node_js: 'node'
