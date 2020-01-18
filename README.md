@@ -17,3 +17,10 @@ This module will respect the major and minor versions of the included `libheif`,
 ```bash
 npm install libheif-js
 ```
+
+## Related
+
+This module contains the low-level `libheif` implementation. For more user-friendly functionality, check out these projects:
+
+* [heic-convert](https://github.com/catdad-experiments/heic-convert) - convert heic/heif images to jpeg and png
+* [heic-decode](https://github.com/catdad-experiments/heic-decode) - decode heic images to raw image data
