@@ -10,7 +10,7 @@
 [npm-downloads.svg]: https://img.shields.io/npm/dm/libheif-js.svg
 [npm.link]: https://www.npmjs.com/package/libheif-js
 
-This module will respect the major and minor versions of the included `libheif`, witht he patch version representin changes in this module itself. For the exact version of `libheif`, please see the [install script](scripts/install.js).
+This module will respect the major and minor versions of the included `libheif`, with the patch version representing changes in this module itself. For the exact version of `libheif`, please see the [install script](scripts/install.js).
 
 ## Install
 
