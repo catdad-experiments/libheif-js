@@ -1,8 +1,5 @@
 /* eslint-disable no-console */
 const path = require('path');
-const { promisify } = require('util');
-const eos = promisify(require('end-of-stream'));
-const pump = require('pumpify');
 const fs = require('fs-extra');
 const fetch = require('node-fetch');
 const root = require('rootrequire');
@@ -17,21 +14,19 @@ const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/
 const lib = `${base}/libheif.js`;
 const license = `${base}/LICENSE`;
 
-const responseStream = async url => {
+const response = async url => {
   const res = await fetch(url);
 
   if (!res.ok) {
     throw new Error(`failed response: ${res.status} ${res.statusText}`);
   }
 
-  return res.body;
+  return await res.buffer();
 };
 
 (async () => {
-  await fs.ensureDir(libheifDir);
-
-  await eos(pump(await responseStream(lib), fs.createWriteStream(libheif)));
-  await eos(pump(await responseStream(license), fs.createWriteStream(libheifLicense)));
+  await fs.outputFile(libheif, await response(lib));
+  await fs.outputFile(libheifLicense, await response(license));
 })().then(() => {
   console.log(`fetched libheif ${version}`);
 }).catch(err => {
