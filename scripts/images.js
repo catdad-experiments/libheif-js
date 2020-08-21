@@ -13,6 +13,9 @@ const images = [{
 }, {
   name: '0002.heic',
   url: drive('1J_761fe_HWSijAthq7h_D2Zsf1_es1cT')
+}, {
+  name: '0002-control.png',
+  url: drive('1uomSNTAK5FifvI72lYi6T42zhvVv1LwH')
 }].map(img => {
   img.path = resolve(img.name);
   return img;

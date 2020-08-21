@@ -1,20 +1,39 @@
 /* eslint-env mocha */
 const path = require('path');
-const crypto = require('crypto');
 
 const fs = require('fs-extra');
 const root = require('rootrequire');
 const { expect } = require('chai');
+const { PNG } = require('pngjs');
+const toUint8 = require('buffer-to-uint8array');
+const pixelmatch = require('pixelmatch');
 
 const libheif = require('../');
 
 describe('libheif', () => {
+  const readControl = async name => {
+    const buffer = await fs.readFile(path.resolve(root, `temp/${name}`));
+    const { data, width, height } = PNG.sync.read(buffer);
+
+    return { data, width, height };
+  };
+
+  const compare = (expected, actual, width, height, errString = 'actual image did not match control image') => {
+    const result = pixelmatch(toUint8(Buffer.from(expected)), toUint8(Buffer.from(actual)), null, width, height, {
+      threshold: 0.1
+    });
+
+    // allow 1% of pixels to be different
+    expect(result).to.be.below(width * height * 0.01, errString);
+  };
+
   it('has a decoder property', () => {
     expect(libheif).to.have.property('HeifDecoder')
       .and.to.be.a('function');
   });
 
   it('can decode a known image', async () => {
+    const control = await readControl('0002-control.png');
     const file = await fs.readFile(path.resolve(root, 'temp', '0002.heic'));
     const decoder = new libheif.HeifDecoder();
     const data = decoder.decode(file);
@@ -40,9 +59,6 @@ describe('libheif', () => {
       });
     });
 
-    const buffer = Buffer.from(arrayBuffer);
-    const hash = crypto.createHash('sha256').update(buffer).digest('hex');
-
-    expect(hash).to.equal('fe4585b4d72109d470c01acf74b7301b88bf2df4b865daadc3e35d3413d1228f');
+    compare(control.data, arrayBuffer, control.width, control.height);
   });
 });

@@ -7,7 +7,8 @@
     "pretest": "npm run -s images",
     "test": "mocha test/**/*.test.js",
     "fetch": "node scripts/install.js",
-    "images": "node scripts/images.js"
+    "images": "node scripts/images.js",
+    "inspect": "node scripts/convert.js < temp/0002.heic > out.png"
   },
   "repository": {
     "type": "git",
@@ -20,11 +21,14 @@
   },
   "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
   "devDependencies": {
+    "buffer-to-uint8array": "^1.1.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",
     "mocha": "^7.0.0",
     "node-fetch": "^2.6.0",
+    "pixelmatch": "^5.2.1",
+    "pngjs": "^3.4.0",
     "rootrequire": "^1.0.0"
   },
   "engines": {
