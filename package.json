@@ -7,7 +7,8 @@
     "pretest": "npm run -s images",
     "test": "mocha test/**/*.test.js",
     "fetch": "node scripts/install.js",
-    "images": "node scripts/images.js"
+    "images": "node scripts/images.js",
+    "inspect": "node scripts/convert.js < temp/0002.heic > out.png"
   },
   "repository": {
     "type": "git",
