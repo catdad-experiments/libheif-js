@@ -38,6 +38,9 @@
     "heif",
     "heic",
     "libheif",
-    "decoder"
+    "decoder",
+    "node",
+    "browser",
+    "emscripten"
   ]
 }
