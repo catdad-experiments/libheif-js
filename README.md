@@ -4,11 +4,13 @@
 
 [![travis][travis.svg]][travis.link]
 [![npm-downloads][npm-downloads.svg]][npm.link]
+[![npm-version][npm-version.svg]][npm.link]
 
 [travis.svg]: https://travis-ci.com/catdad-experiments/libheif-js.svg?branch=master
 [travis.link]: https://travis-ci.com/catdad-experiments/libheif-js
 [npm-downloads.svg]: https://img.shields.io/npm/dm/libheif-js.svg
 [npm.link]: https://www.npmjs.com/package/libheif-js
+[npm-version.svg]: https://img.shields.io/npm/v/libheif-js.svg
 
 This module will respect the major and minor versions of the included `libheif`, with the patch version representing changes in this module itself. For the exact version of `libheif`, please see the [install script](scripts/install.js).
 
