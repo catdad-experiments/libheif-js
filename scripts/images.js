@@ -23,6 +23,11 @@ const images = [{
 
 (async () => {
   for (let image of images) {
+    if (await fs.exists(image.path)) {
+      console.log(`skipping ${image.name} because it already exists`);
+      continue;
+    }
+
     const { url, name } = image;
     const res = await fetch(url);
 
