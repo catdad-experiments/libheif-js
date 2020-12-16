@@ -32,33 +32,50 @@ describe('libheif', () => {
       .and.to.be.a('function');
   });
 
-  it('can decode a known image', async () => {
-    const control = await readControl('0002-control.png');
-    const file = await fs.readFile(path.resolve(root, 'temp', '0002.heic'));
-    const decoder = new libheif.HeifDecoder();
-    const data = decoder.decode(file);
+  [{
+    name: 'can decode a known image',
+    file: '0002.heic',
+    control: '0002-control.png',
+    size: {
+      width: 1440,
+      height: 960
+    }
+  }, {
+    name: 'can decode a known image with an odd width',
+    file: '0003.heic',
+    control: '0003-control.png',
+    size: {
+      width: 1125,
+      height: 2436
+    }
+  }].forEach(meta => {
+    it(meta.name, async () => {
+      const control = await readControl(meta.control);
+      const file = await fs.readFile(path.resolve(root, 'temp', meta.file));
+      const decoder = new libheif.HeifDecoder();
+      const data = decoder.decode(file);
 
-    expect(data).to.have.property('length').and.to.be.above(0);
+      expect(data).to.have.property('length').and.to.be.above(0);
 
-    const image = data[0];
-    const width = image.get_width();
-    const height = image.get_height();
+      const image = data[0];
+      const width = image.get_width();
+      const height = image.get_height();
 
-    expect(image).to.have.property('display').and.to.be.a('function');
-    expect(width).to.equal(1440);
-    expect(height).to.equal(960);
+      expect(image).to.have.property('display').and.to.be.a('function');
+      expect({ width, height }).to.deep.equal(meta.size);
 
-    const arrayBuffer = await new Promise((resolve, reject) => {
-      image.display({ data: new Uint8ClampedArray(width*height*4), width, height }, (displayData) => {
-        if (!displayData) {
-          return reject(new Error('HEIF processing error'));
-        }
+      const arrayBuffer = await new Promise((resolve, reject) => {
+        image.display({ data: new Uint8ClampedArray(width*height*4), width, height }, (displayData) => {
+          if (!displayData) {
+            return reject(new Error('HEIF processing error'));
+          }
 
-        // get the ArrayBuffer from the Uint8Array
-        resolve(displayData.data.buffer);
+          // get the ArrayBuffer from the Uint8Array
+          resolve(displayData.data.buffer);
+        });
       });
-    });
 
-    compare(control.data, arrayBuffer, control.width, control.height);
+      compare(control.data, arrayBuffer, control.width, control.height);
+    });
   });
 });

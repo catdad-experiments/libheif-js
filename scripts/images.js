@@ -16,6 +16,12 @@ const images = [{
 }, {
   name: '0002-control.png',
   url: drive('1uomSNTAK5FifvI72lYi6T42zhvVv1LwH')
+}, {
+  name: '0003.heic',
+  url: drive('1T2okNblxl4OzG_yR11HIZdK6IC0xg-8N')
+}, {
+  name: '0003-control.png',
+  url: drive('1IID6zpjBu3DUBZZMvjHp7AKDX49bqbq7')
 }].map(img => {
   img.path = resolve(img.name);
   return img;
@@ -23,6 +29,11 @@ const images = [{
 
 (async () => {
   for (let image of images) {
+    if (await fs.exists(image.path)) {
+      console.log(`skipping ${image.name} because it already exists`);
+      continue;
+    }
+
     const { url, name } = image;
     const res = await fetch(url);
 
