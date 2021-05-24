@@ -24,4 +24,5 @@ jobs:
           pwd
           ls -R
       - run: npm install
+      - run: npm run fetch
       - run: npm test
