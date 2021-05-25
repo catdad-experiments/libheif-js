@@ -14,6 +14,9 @@
     "type": "git",
     "url": "git+https://github.com/catdad-experiments/libheif-js.git"
   },
+  "files": [
+    "libheif"
+  ],
   "author": "Kiril Vatev <vatev.1@gmail.com>",
   "license": "LGPL-3.0",
   "bugs": {
