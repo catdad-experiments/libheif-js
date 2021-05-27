@@ -4,7 +4,7 @@ on:
   push:
   pull_request:
     branches: [ master ]
-    
+
 env:
   FORCE_COLOR: 1
 
@@ -24,6 +24,7 @@ jobs:
       - run: npm install
       - run: npm run fetch
       - run: npm test
+      - run: npm run lint
       - name: inspect tarball
         run: npm pack
   publish:

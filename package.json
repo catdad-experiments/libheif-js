@@ -8,7 +8,8 @@
     "test": "mocha test/**/*.test.js",
     "fetch": "node scripts/install.js",
     "images": "node scripts/images.js",
-    "inspect": "node scripts/convert.js < temp/0002.heic > out.png"
+    "inspect": "node scripts/convert.js < temp/0002.heic > out.png",
+    "lint": "eslint test/**/*.js"
   },
   "repository": {
     "type": "git",
