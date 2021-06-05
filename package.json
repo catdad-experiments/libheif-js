@@ -8,12 +8,16 @@
     "test": "mocha test/**/*.test.js",
     "fetch": "node scripts/install.js",
     "images": "node scripts/images.js",
-    "inspect": "node scripts/convert.js < temp/0002.heic > out.png"
+    "inspect": "node scripts/convert.js < temp/0002.heic > out.png",
+    "lint": "eslint test/**/*.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/catdad-experiments/libheif-js.git"
   },
+  "files": [
+    "libheif"
+  ],
   "author": "Kiril Vatev <vatev.1@gmail.com>",
   "license": "LGPL-3.0",
   "bugs": {
@@ -21,7 +25,6 @@
   },
   "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
   "devDependencies": {
-    "buffer-to-uint8array": "^1.1.0",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",

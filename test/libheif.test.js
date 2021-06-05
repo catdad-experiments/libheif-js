@@ -5,7 +5,6 @@ const fs = require('fs-extra');
 const root = require('rootrequire');
 const { expect } = require('chai');
 const { PNG } = require('pngjs');
-const toUint8 = require('buffer-to-uint8array');
 const pixelmatch = require('pixelmatch');
 
 const libheif = require('../');
@@ -19,7 +18,7 @@ describe('libheif', () => {
   };
 
   const compare = (expected, actual, width, height, errString = 'actual image did not match control image') => {
-    const result = pixelmatch(toUint8(Buffer.from(expected)), toUint8(Buffer.from(actual)), null, width, height, {
+    const result = pixelmatch(Buffer.from(expected), Buffer.from(actual), null, width, height, {
       threshold: 0.1
     });
 
