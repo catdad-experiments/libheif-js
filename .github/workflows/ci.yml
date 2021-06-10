@@ -43,3 +43,9 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+      - name: Output logs
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: npm-logs
+          path: /home/runner/.npm/_logs/**
