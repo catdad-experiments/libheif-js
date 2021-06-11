@@ -37,13 +37,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
+          registry-url: https://registry.npmjs.org/
       - run: npm install
       - run: npm run fetch
       - run: npm test
       - run: npm publish --loglevel verbose
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-          NPM_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Output logs
         if: ${{ always() }}
         uses: actions/upload-artifact@v2
