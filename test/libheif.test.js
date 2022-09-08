@@ -7,6 +7,7 @@ const { expect } = require('chai');
 const { PNG } = require('pngjs');
 const pixelmatch = require('pixelmatch');
 
+const pkg = require('../package.json');
 const libheif = require('../');
 
 describe('libheif', () => {
@@ -25,6 +26,13 @@ describe('libheif', () => {
     // allow 1% of pixels to be different
     expect(result).to.be.below(width * height * 0.01, errString);
   };
+
+  it('is the correct version', () => {
+    expect(libheif).to.have.property('heif_get_version')
+      .and.to.be.a('function');
+    expect(libheif.heif_get_version()).to.equal('1.13.0')
+      .and.to.equal(pkg.version);
+  });
 
   it('has a decoder property', () => {
     expect(libheif).to.have.property('HeifDecoder')
