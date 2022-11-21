@@ -8,7 +8,7 @@ const libheifDir = path.resolve(root, 'libheif');
 const libheif = path.resolve(libheifDir, 'libheif.js');
 const libheifLicense = path.resolve(libheifDir, 'LICENSE');
 
-const version = 'v1.13.0';
+const version = 'v1.14.0';
 
 const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}`;
 const lib = `${base}/libheif.js`;
