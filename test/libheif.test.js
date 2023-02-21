@@ -30,7 +30,7 @@ describe('libheif', () => {
   it('is the correct version', () => {
     expect(libheif).to.have.property('heif_get_version')
       .and.to.be.a('function');
-    expect(libheif.heif_get_version()).to.equal('1.14.0')
+    expect(libheif.heif_get_version()).to.equal('1.15.1')
       .and.to.equal(pkg.version);
   });
 
