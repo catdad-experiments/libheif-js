@@ -40,3 +40,4 @@ temp/
 
 # not source code
 libheif/
+libheif-wasm/

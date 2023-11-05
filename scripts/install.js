@@ -3,30 +3,46 @@ const path = require('path');
 const fs = require('fs-extra');
 const fetch = require('node-fetch');
 const root = require('rootrequire');
+const tar = require('tar-stream');
+const gunzip = require('gunzip-maybe');
 
-const libheifDir = path.resolve(root, 'libheif');
-const libheif = path.resolve(libheifDir, 'libheif.js');
-const libheifLicense = path.resolve(libheifDir, 'LICENSE');
-
-const version = 'v1.15.1';
+const version = 'v1.17.1';
 
 const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}`;
-const lib = `${base}/libheif.js`;
-const license = `${base}/LICENSE`;
+const tarball = `${base}/libheif.tar.gz`;
 
-const response = async url => {
+const getStream = async url => {
   const res = await fetch(url);
 
   if (!res.ok) {
     throw new Error(`failed response: ${res.status} ${res.statusText}`);
   }
 
-  return await res.buffer();
+  return res.body;
+};
+
+const autoReadStream = async stream => {
+  let result = Buffer.from('');
+
+  for await (const data of stream) {
+    result = Buffer.concat([result, data]);
+  }
+
+  return result;
 };
 
 (async () => {
-  await fs.outputFile(libheif, await response(lib));
-  await fs.outputFile(libheifLicense, await response(license));
+  for await (const entry of (await getStream(tarball)).pipe(gunzip()).pipe(tar.extract())) {
+    const basedir = entry.header.name.split('/')[0];
+
+    if (entry.header.type === 'file' && ['libheif', 'libheif-wasm'].includes(basedir)) {
+      const outfile = path.resolve(root, entry.header.name);
+      console.log(`  writing "${outfile}"`);
+      await fs.outputFile(outfile, await autoReadStream(entry));
+    } else {
+      await autoReadStream(entry);
+    }
+  }
 })().then(() => {
   console.log(`fetched libheif ${version}`);
 }).catch(err => {
