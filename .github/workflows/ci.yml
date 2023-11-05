@@ -15,6 +15,9 @@ jobs:
     strategy:
       matrix:
         node-version: [8, 10, 12, 14, 16, 18]
+        exclude:
+          - node-version: 9
+          - node-version: 10
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
