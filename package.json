@@ -1,8 +1,8 @@
 {
   "name": "libheif-js",
-  "version": "1.15.1",
+  "version": "1.17.1",
   "description": "Emscripten distribution of libheif for Node.JS and the browser",
-  "main": "libheif/libheif.js",
+  "main": "index.js",
   "scripts": {
     "pretest": "npm run -s images",
     "test": "mocha test/**/*.test.js",
