@@ -5,12 +5,15 @@
 [![github actions test][github-actions-test.svg]][github-actions-test.link]
 [![npm-downloads][npm-downloads.svg]][npm.link]
 [![npm-version][npm-version.svg]][npm.link]
+[![jsdelivr][jsdelivr.svg]][jsdelivr.link]
 
 [github-actions-test.link]: https://github.com/catdad-experiments/libheif-js/actions?query=workflow%3ACI
 [github-actions-test.svg]: https://github.com/catdad-experiments/libheif-js/actions/workflows/ci.yml/badge.svg
 [npm-downloads.svg]: https://img.shields.io/npm/dm/libheif-js.svg
 [npm.link]: https://www.npmjs.com/package/libheif-js
 [npm-version.svg]: https://img.shields.io/npm/v/libheif-js.svg
+[jsdelivr.svg]: https://img.shields.io/jsdelivr/npm/hm/libheif-js
+[jsdelivr.link]: https://www.jsdelivr.com/package/npm/libheif-js
 
 This module will respect the major and minor versions of the included `libheif`, with the patch version representing changes in this module itself. For the exact version of `libheif`, please see the [install script](scripts/install.js).
 
@@ -24,7 +27,7 @@ npm install libheif-js
 
 Starting with version 1.17, there are multiple variants of `libheif` that you can use:
 
-* The default is still the classic pure-javascript implementation (for backwards compatibility, of course).
+* The default is still the classic pure-javascript implementation (for backwards compatibility, of course). You can still bundle this into your project with your bundler of choice.
   ```js
   const libheif = require('libheif-js');
   ```
