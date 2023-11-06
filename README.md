@@ -20,6 +20,42 @@ This module will respect the major and minor versions of the included `libheif`,
 npm install libheif-js
 ```
 
+## Usage
+
+Starting with version 1.17, there are multiple variants of `libheif` that you can use:
+
+* The default is still the classic pure-javascript implementation (for backwards compatibility, of course).
+  ```js
+  const libheif = require('libheif-js');
+  ```
+* There is a `wasm` version available for use in NodeJS. This version will dymanically load the `.wasm` binary at runtime. While you may try to run this through a bundler, you are on your own for making it work.
+  ```js
+  const libheif = require('libheif-js/wasm');
+  ```
+* There is also a `wasm` version that is pre-bundled for you, which includes the `.wasm` binary inside the `.js` bundle. You will have a much easier time using this in your browser bundle project.
+  ```js
+  const libheif = require('libheif-js/wasm-bundle');
+  ```
+
+If you'd like to include this module directly into an `html` page using a `<script>` tag, you have the following options:
+
+_Note: in the examples below, make sure to set the latest version when you use it. Always make sure to set a version, to make sure your website does not break unexpectedly when an update is released._
+
+* Use the pure-javascript implementation, exposing a `libheif` global:
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif/libheif.js"></script>
+  ```
+* Use the wasm bundle, exposing a `libheif` global:
+  ```html
+  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.js"></script>
+  ```
+* Use the ES Module version, which now works in all major browsers and you should try it:
+  ```html
+  <script type="module">
+    import libheif from 'https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.mjs';
+  </script>
+  ```
+
 ## Related
 
 This module contains the low-level `libheif` implementation. For more user-friendly functionality, check out these projects:
