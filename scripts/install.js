@@ -6,6 +6,8 @@ const root = require('rootrequire');
 const tar = require('tar-stream');
 const gunzip = require('gunzip-maybe');
 
+const esbuild = require('esbuild');
+
 const version = 'v1.17.1';
 
 const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}`;
@@ -32,6 +34,9 @@ const autoReadStream = async stream => {
 };
 
 (async () => {
+  await fs.remove(path.resolve(root, 'libheif'));
+  await fs.remove(path.resolve(root, 'libheif-wasm'));
+
   for await (const entry of (await getStream(tarball)).pipe(gunzip()).pipe(tar.extract())) {
     const basedir = entry.header.name.split('/')[0];
 
@@ -43,6 +48,44 @@ const autoReadStream = async stream => {
       await autoReadStream(entry);
     }
   }
+
+  const buildOptions = {
+    entryPoints: [path.resolve(root, 'scripts/bundle.js')],
+    bundle: true,
+    minify: true,
+    external: ['fs', 'path', 'require'],
+    loader: {
+      '.wasm': 'binary'
+    },
+    platform: 'neutral'
+  };
+
+  await esbuild.build({
+    ...buildOptions,
+    outfile: path.resolve(root, 'libheif-wasm/libheif-bundle.js'),
+    format: 'iife',
+    globalName: 'libheif',
+    footer: {
+      // hack to support a single bundle as a node cjs module
+      // and a browser <script>, similar to the js version libheif
+      js: `
+libheif = libheif.default;
+if (typeof exports === 'object' && typeof module === 'object') {
+  module.exports = libheif;
+}`
+    }
+  });
+
+  await esbuild.build({
+    ...buildOptions,
+    outfile: path.resolve(root, 'libheif-wasm/libheif-bundle.mjs'),
+    format: 'esm',
+    banner: {
+      // hack to avoid the ENVIRONMENT_IS_NODE detection
+      // the binary is built in, so the environment doesn't matter
+      js: 'var process;'
+    }
+  });
 })().then(() => {
   console.log(`fetched libheif ${version}`);
 }).catch(err => {

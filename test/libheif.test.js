@@ -35,6 +35,38 @@ describe('libheif (WASM)', () => {
   });
 });
 
+describe('libheif (WASM bundle)', () => {
+  const moduleFile = '../wasm-bundle.js';
+
+  runTests(require(moduleFile));
+
+  it('resolves to wasm file', () => {
+    const expected = path.resolve(root, 'wasm-bundle.js');
+    const actual = require.resolve(moduleFile);
+
+    expect(actual).to.equal(expected);
+  });
+});
+
+describe('libheif (WASM esm bundle)', () => {
+  let dynamicLibheif;
+  let proxyTarget = {};
+
+  const libheifProxy = new Proxy(proxyTarget, {
+    get(target, prop, receiver) {
+      return dynamicLibheif[prop]
+    }
+  });
+
+  before(async () => {
+    dynamicLibheif = (await import('../libheif-wasm/libheif-bundle.mjs')).default();
+    // allows `expect(libheif).to.have.property(...)` work
+    Object.assign(proxyTarget, dynamicLibheif);
+  });
+
+  runTests(libheifProxy);
+});
+
 function runTests(libheif) {
   const readControl = async name => {
     const buffer = await fs.readFile(path.resolve(root, `temp/${name}`));
