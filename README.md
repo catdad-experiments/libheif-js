@@ -12,7 +12,7 @@
 [npm-downloads.svg]: https://img.shields.io/npm/dm/libheif-js.svg
 [npm.link]: https://www.npmjs.com/package/libheif-js
 [npm-version.svg]: https://img.shields.io/npm/v/libheif-js.svg
-[jsdelivr.svg]: https://img.shields.io/jsdelivr/npm/hm/libheif-js
+[jsdelivr.svg]: https://img.shields.io/jsdelivr/npm/hm/libheif-js?color=bd33a4
 [jsdelivr.link]: https://www.jsdelivr.com/package/npm/libheif-js
 
 This module will respect the major and minor versions of the included `libheif`, with the patch version representing changes in this module itself. For the exact version of `libheif`, please see the [install script](scripts/install.js).
