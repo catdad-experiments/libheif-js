@@ -53,8 +53,8 @@ describe('libheif (WASM esm bundle)', () => {
   let proxyTarget = {};
 
   const libheifProxy = new Proxy(proxyTarget, {
-    get(target, prop, receiver) {
-      return dynamicLibheif[prop]
+    get(target, prop) {
+      return dynamicLibheif[prop];
     }
   });
 

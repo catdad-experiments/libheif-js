@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "esbuild": "^0.19.5",
     "eslint": "^5.16.0",
