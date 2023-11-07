@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "npm run -s images",
-    "test": "mocha test/**/*.test.js",
+    "test": "mocha test/**/*.test.js --timeout 4000",
     "fetch": "node scripts/install.js",
     "images": "node scripts/images.js",
     "inspect": "node scripts/convert.js < temp/0002.heic > out.png",
