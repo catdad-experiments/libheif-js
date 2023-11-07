@@ -36,7 +36,7 @@ describe('libheif (WASM)', () => {
 });
 
 describe('libheif (WASM bundle)', () => {
-  const moduleFile = '../wasm-bundle.js';
+  const moduleFile = '../wasm-bundle';
 
   runTests(require(moduleFile));
 
