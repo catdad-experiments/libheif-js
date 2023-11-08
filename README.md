@@ -78,20 +78,18 @@ In NodeJS, you might use this decoded data with other libraries, such as `pngjs`
 ```js
 const { PNG } = require('pngjs');
 
-const arrayBuffer = await new Promise((resolve, reject) => {
+const imageData = await new Promise((resolve, reject) => {
   image.display({ data: new Uint8ClampedArray(width*height*4), width, height }, (displayData) => {
     if (!displayData) {
       return reject(new Error('HEIF processing error'));
     }
 
-    resolve(displayData.data.buffer);
+    resolve(displayData);
   });
 });
 
-const imageData = { width, height, data: arrayBuffer };
-
 const png = new PNG({ width: imageData.width, height: imageData.height });
-png.data = Buffer.from(imageData.data);
+png.data = imageData.data;
 
 const pngBuffer = PNG.sync.write(png);
 ```
