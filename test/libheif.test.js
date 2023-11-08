@@ -8,9 +8,66 @@ const { PNG } = require('pngjs');
 const pixelmatch = require('pixelmatch');
 
 const pkg = require('../package.json');
-const libheif = require('../');
 
-describe('libheif', () => {
+describe('libheif (JS)', () => {
+  const moduleFile = '../';
+
+  runTests(require(moduleFile));
+
+  it('resolves to index file', () => {
+    const expected = path.resolve(root, 'index.js');
+    const actual = require.resolve(moduleFile);
+
+    expect(actual).to.equal(expected);
+  });
+});
+
+describe('libheif (WASM)', () => {
+  const moduleFile = '../wasm';
+
+  runTests(require(moduleFile));
+
+  it('resolves to wasm file', () => {
+    const expected = path.resolve(root, 'wasm.js');
+    const actual = require.resolve(moduleFile);
+
+    expect(actual).to.equal(expected);
+  });
+});
+
+describe('libheif (WASM bundle)', () => {
+  const moduleFile = '../wasm-bundle';
+
+  runTests(require(moduleFile));
+
+  it('resolves to wasm file', () => {
+    const expected = path.resolve(root, 'wasm-bundle.js');
+    const actual = require.resolve(moduleFile);
+
+    expect(actual).to.equal(expected);
+  });
+});
+
+describe('libheif (WASM esm bundle)', () => {
+  let dynamicLibheif;
+  let proxyTarget = {};
+
+  const libheifProxy = new Proxy(proxyTarget, {
+    get(target, prop) {
+      return dynamicLibheif[prop];
+    }
+  });
+
+  before(async () => {
+    dynamicLibheif = (await import('../libheif-wasm/libheif-bundle.mjs')).default();
+    // allows `expect(libheif).to.have.property(...)` work
+    Object.assign(proxyTarget, dynamicLibheif);
+  });
+
+  runTests(libheifProxy);
+});
+
+function runTests(libheif) {
   const readControl = async name => {
     const buffer = await fs.readFile(path.resolve(root, `temp/${name}`));
     const { data, width, height } = PNG.sync.read(buffer);
@@ -30,7 +87,7 @@ describe('libheif', () => {
   it('is the correct version', () => {
     expect(libheif).to.have.property('heif_get_version')
       .and.to.be.a('function');
-    expect(libheif.heif_get_version()).to.equal('1.15.1')
+    expect(libheif.heif_get_version()).to.equal('1.17.1')
       .and.to.equal(pkg.version);
   });
 
@@ -85,4 +142,4 @@ describe('libheif', () => {
       compare(control.data, arrayBuffer, control.width, control.height);
     });
   });
-});
+}

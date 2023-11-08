@@ -1,11 +1,11 @@
 {
   "name": "libheif-js",
-  "version": "1.15.1",
+  "version": "1.17.1",
   "description": "Emscripten distribution of libheif for Node.JS and the browser",
-  "main": "libheif/libheif.js",
+  "main": "index.js",
   "scripts": {
     "pretest": "npm run -s images",
-    "test": "mocha test/**/*.test.js",
+    "test": "mocha test/**/*.test.js --timeout 4000",
     "fetch": "node scripts/install.js",
     "images": "node scripts/images.js",
     "inspect": "node scripts/convert.js < temp/0002.heic > out.png",
@@ -16,7 +16,11 @@
     "url": "git+https://github.com/catdad-experiments/libheif-js.git"
   },
   "files": [
-    "libheif"
+    "index.js",
+    "wasm.js",
+    "wasm-bundle.js",
+    "libheif",
+    "libheif-wasm"
   ],
   "author": "Kiril Vatev <vatev.1@gmail.com>",
   "license": "LGPL-3.0",
@@ -25,14 +29,18 @@
   },
   "homepage": "https://github.com/catdad-experiments/libheif-js#readme",
   "devDependencies": {
+    "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
+    "esbuild": "^0.19.5",
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",
+    "gunzip-maybe": "^1.4.2",
     "mocha": "^7.0.0",
     "node-fetch": "^2.6.0",
     "pixelmatch": "^5.2.1",
     "pngjs": "^3.4.0",
-    "rootrequire": "^1.0.0"
+    "rootrequire": "^1.0.0",
+    "tar-stream": "^3.1.6"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -44,6 +52,7 @@
     "decoder",
     "node",
     "browser",
-    "emscripten"
+    "emscripten",
+    "wasm"
   ]
 }
