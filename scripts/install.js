@@ -52,7 +52,7 @@ const autoReadStream = async stream => {
         // support them here, so transform to a target from before
         // https://esbuild.github.io/content-types/#javascript
         const result = await esbuild.transform(file, {
-          target: 'es2019',
+          target: 'es2018',
           minify: true
         });
 
