@@ -43,7 +43,23 @@ const autoReadStream = async stream => {
     if (entry.header.type === 'file' && ['libheif', 'libheif-wasm'].includes(basedir)) {
       const outfile = path.resolve(root, entry.header.name);
       console.log(`  writing "${outfile}"`);
-      await fs.outputFile(outfile, await autoReadStream(entry));
+
+      let file = await autoReadStream(entry);
+
+      if (path.extname(outfile) === '.js') {
+        // libheif started using optional chaining, which is not
+        // supported in older versions of node, but we'd like to
+        // support them here, so transform to a target from before
+        // https://esbuild.github.io/content-types/#javascript
+        const result = await esbuild.transform(file, {
+          target: 'es2019',
+          minify: true
+        });
+
+        file = result.code;
+      }
+
+      await fs.outputFile(outfile, file);
     } else {
       await autoReadStream(entry);
     }
