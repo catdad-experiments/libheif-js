@@ -37,6 +37,12 @@ const autoReadStream = async stream => {
   await fs.remove(path.resolve(root, 'libheif'));
   await fs.remove(path.resolve(root, 'libheif-wasm'));
 
+  // libheif started using optional chaining, which is not
+  // supported in older versions of node, but we'd like to
+  // support them here, so transform to a target from before
+  // https://esbuild.github.io/content-types/#javascript
+  const target = 'es2019';
+
   for await (const entry of (await getStream(tarball)).pipe(gunzip()).pipe(tar.extract())) {
     const basedir = entry.header.name.split('/')[0];
 
@@ -47,12 +53,8 @@ const autoReadStream = async stream => {
       let file = await autoReadStream(entry);
 
       if (path.extname(outfile) === '.js') {
-        // libheif started using optional chaining, which is not
-        // supported in older versions of node, but we'd like to
-        // support them here, so transform to a target from before
-        // https://esbuild.github.io/content-types/#javascript
         const result = await esbuild.transform(file, {
-          target: 'es2018',
+          target,
           minify: true
         });
 
@@ -69,6 +71,7 @@ const autoReadStream = async stream => {
     entryPoints: [path.resolve(root, 'scripts/bundle.js')],
     bundle: true,
     minify: true,
+    target,
     external: ['fs', 'path', 'require'],
     loader: {
       '.wasm': 'binary'
