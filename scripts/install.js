@@ -8,7 +8,7 @@ const gunzip = require('gunzip-maybe');
 
 const esbuild = require('esbuild');
 
-const version = 'v1.17.1';
+const version = 'v1.18.0';
 
 const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}`;
 const tarball = `${base}/libheif.tar.gz`;
@@ -37,13 +37,31 @@ const autoReadStream = async stream => {
   await fs.remove(path.resolve(root, 'libheif'));
   await fs.remove(path.resolve(root, 'libheif-wasm'));
 
+  // libheif started using optional chaining, which is not
+  // supported in older versions of node, but we'd like to
+  // support them here, so transform to a target from before
+  // https://esbuild.github.io/content-types/#javascript
+  const target = 'es2019';
+
   for await (const entry of (await getStream(tarball)).pipe(gunzip()).pipe(tar.extract())) {
     const basedir = entry.header.name.split('/')[0];
 
     if (entry.header.type === 'file' && ['libheif', 'libheif-wasm'].includes(basedir)) {
       const outfile = path.resolve(root, entry.header.name);
       console.log(`  writing "${outfile}"`);
-      await fs.outputFile(outfile, await autoReadStream(entry));
+
+      let file = await autoReadStream(entry);
+
+      if (path.extname(outfile) === '.js') {
+        const result = await esbuild.transform(file, {
+          target,
+          minify: true
+        });
+
+        file = result.code;
+      }
+
+      await fs.outputFile(outfile, file);
     } else {
       await autoReadStream(entry);
     }
@@ -53,6 +71,7 @@ const autoReadStream = async stream => {
     entryPoints: [path.resolve(root, 'scripts/bundle.js')],
     bundle: true,
     minify: true,
+    target,
     external: ['fs', 'path', 'require'],
     loader: {
       '.wasm': 'binary'
