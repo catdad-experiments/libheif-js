@@ -8,7 +8,7 @@ const gunzip = require('gunzip-maybe');
 
 const esbuild = require('esbuild');
 
-const version = 'v1.18.0';
+const version = 'v1.18.2';
 
 const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}`;
 const tarball = `${base}/libheif.tar.gz`;
