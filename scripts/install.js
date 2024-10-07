@@ -7,6 +7,7 @@ const tar = require('tar-stream');
 const gunzip = require('gunzip-maybe');
 
 const esbuild = require('esbuild');
+const { nodeModulesPolyfillPlugin } = require('esbuild-plugins-node-modules-polyfill');
 
 const version = 'v1.18.2';
 
@@ -79,6 +80,15 @@ const autoReadStream = async stream => {
     platform: 'neutral'
   };
 
+  const plugins = () => [
+    nodeModulesPolyfillPlugin({
+      modules: {
+        fs: 'empty',
+        path: 'empty'
+      }
+    })
+  ];
+
   await esbuild.build({
     ...buildOptions,
     outfile: path.resolve(root, 'libheif-wasm/libheif-bundle.js'),
@@ -92,7 +102,8 @@ libheif = libheif.default;
 if (typeof exports === 'object' && typeof module === 'object') {
   module.exports = libheif;
 }`
-    }
+    },
+    plugins: plugins(),
   });
 
   await esbuild.build({
@@ -102,8 +113,9 @@ if (typeof exports === 'object' && typeof module === 'object') {
     banner: {
       // hack to avoid the ENVIRONMENT_IS_NODE detection
       // the binary is built in, so the environment doesn't matter
-      js: 'var process;'
-    }
+      js: 'var process, __dirname;'
+    },
+    plugins: plugins(),
   });
 })().then(() => {
   console.log(`fetched libheif ${version}`);
