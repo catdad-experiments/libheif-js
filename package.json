@@ -1,6 +1,6 @@
 {
   "name": "libheif-js",
-  "version": "1.18.0",
+  "version": "1.18.2",
   "description": "Emscripten distribution of libheif for Node.JS and the browser",
   "main": "index.js",
   "scripts": {
@@ -32,6 +32,7 @@
     "babel-eslint": "^10.1.0",
     "chai": "^4.2.0",
     "esbuild": "^0.19.5",
+    "esbuild-plugins-node-modules-polyfill": "^1.6.7",
     "eslint": "^5.16.0",
     "fs-extra": "^8.1.0",
     "gunzip-maybe": "^1.4.2",
