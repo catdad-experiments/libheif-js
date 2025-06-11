@@ -87,7 +87,7 @@ function runTests(libheif) {
   it('is the correct version', () => {
     expect(libheif).to.have.property('heif_get_version')
       .and.to.be.a('function');
-    expect(libheif.heif_get_version()).to.equal('1.18.2')
+    expect(libheif.heif_get_version()).to.equal('1.19.8')
       .and.to.equal(pkg.version);
   });
 
