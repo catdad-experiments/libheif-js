@@ -46,16 +46,16 @@ _Note: in the examples below, make sure to set the latest version when you use i
 
 * Use the pure-javascript implementation, exposing a `libheif` global:
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif/libheif.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.19.8/libheif/libheif.js"></script>
   ```
 * Use the wasm bundle, exposing a `libheif` global:
   ```html
-  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.19.8/libheif-wasm/libheif-bundle.js"></script>
   ```
 * Use the ES Module version, which now works in all major browsers and you should try it:
   ```html
   <script type="module">
-    import libheif from 'https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.mjs';
+    import libheif from 'https://cdn.jsdelivr.net/npm/libheif-js@1.19.8/libheif-wasm/libheif-bundle.mjs';
   </script>
   ```
 
