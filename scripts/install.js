@@ -11,11 +11,15 @@ const { nodeModulesPolyfillPlugin } = require('esbuild-plugins-node-modules-poly
 
 const version = 'v1.23.2';
 
-const base = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}`;
-const tarball = `${base}/libheif.tar.gz`;
+const tarball = `https://github.com/catdad-experiments/libheif-emscripten/releases/download/${version}/libheif.tar.gz`;
+const file = process.argv[2];
 
-const getStream = async url => {
-  const res = await fetch(url);
+const getStream = async () => {
+  if (file) {
+    return fs.createReadStream(file);
+  }
+
+  const res = await fetch(tarball);
 
   if (!res.ok) {
     throw new Error(`failed response: ${res.status} ${res.statusText}`);
@@ -44,7 +48,7 @@ const autoReadStream = async stream => {
   // https://esbuild.github.io/content-types/#javascript
   const target = 'es2019';
 
-  for await (const entry of (await getStream(tarball)).pipe(gunzip()).pipe(tar.extract())) {
+  for await (const entry of (await getStream()).pipe(gunzip()).pipe(tar.extract())) {
     const basedir = entry.header.name.split('/')[0];
 
     if (entry.header.type === 'file' && ['libheif', 'libheif-wasm'].includes(basedir)) {
@@ -118,8 +122,16 @@ if (typeof exports === 'object' && typeof module === 'object') {
     plugins: plugins(),
   });
 })().then(() => {
-  console.log(`fetched libheif ${version}`);
+  console.log(file ?
+    `installed libheif from local file "${file}"` :
+    `fetched libheif ${version}`
+  );
 }).catch(err => {
-  console.error(`failed to fetch libheif ${version}\n`, err);
+  console.error(file ?
+    `failed to install libheif from local file "${file}"` :
+    `failed to fetch libheif ${version}`,
+    '\n',
+    err
+  );
   process.exitCode = 1;
 });
