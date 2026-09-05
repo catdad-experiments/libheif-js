@@ -29,6 +29,9 @@ jobs:
         run: npm pack --dry-run
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     if: startsWith(github.ref, 'refs/tags/') && github.event_name != 'pull_request'
     needs: test
     steps:
