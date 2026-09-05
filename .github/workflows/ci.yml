@@ -42,8 +42,6 @@ jobs:
       - run: npm run fetch
       - run: npm test
       - run: npm publish --loglevel verbose
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
       - name: Output logs
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
